@@ -1,0 +1,1 @@
+alter TABLE cliente rename  column telefone to fone;
