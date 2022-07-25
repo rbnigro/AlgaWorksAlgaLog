@@ -1,7 +1,6 @@
 package com.algaworks.algalog.api.exceptionhanlder;
 
 import com.algaworks.algalog.domain.exception.NegocioException;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private Problema criaAmbienteProblema(HttpStatus pStatus, String pTitulo, List campos) {
         var problemaRetonno = new Problema();
         problemaRetonno.setStatus(pStatus.value());
-        problemaRetonno.setDataHora(LocalDateTime.now());
+        problemaRetonno.setDataHora(OffsetDateTime.now());
         problemaRetonno.setTitulo(pTitulo);
         problemaRetonno.setCampos(campos);
         return problemaRetonno;

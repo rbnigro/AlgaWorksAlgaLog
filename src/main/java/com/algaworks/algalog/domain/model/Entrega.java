@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
@@ -45,8 +45,10 @@ public class Entrega {
     private StatusEntrega status;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataPedido;
+    private OffsetDateTime dataPedido;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataFinalizado;
+    private OffsetDateTime dataFinalizado;
+
+    // @Transient -> não vai para o banco
 }
