@@ -1,7 +1,6 @@
 package com.algaworks.algalog.domain.model;
 
 import com.algaworks.algalog.domain.ValildationsGroups;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +17,7 @@ import javax.validation.constraints.Size;
 public class Cliente {
 
     @NotNull(groups = ValildationsGroups.ClienteId.class)
-    @EqualsAndHashCode.Include
+    // @EqualsAndHashCode.Include
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +34,9 @@ public class Cliente {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "fone")
     @NotBlank
     @Size(max = 20)
+    @Column(name = "fone")
     private String fone;
 
 

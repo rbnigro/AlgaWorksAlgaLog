@@ -118,7 +118,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Caua S Nigro\",\r\n    \"email\": \"cauanigro@gmail.com.br\",\r\n    \"fone\": \"1133795300\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Caua Silva Nigro\",\r\n    \"email\": \"caua@gmail.com.gr\",\r\n    \"fone\": \"1133795300\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,7 +180,91 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cliente\":{\r\n        \"id\": 2\r\n    },\r\n    \"destinatario\": {\r\n        \"nome\": \"Maria da Silva\",\r\n        \"logradouro\": \"Rua das boiadas\",\r\n        \"numero\": \"100\",\r\n        \"bairro\": \"Centro\"\r\n    },\r\n    \"taxa\": 10.50\r\n}",
+							"raw": "{\r\n    \"cliente\":{\r\n        \"id\": 11\r\n    },\r\n    \"destinatario\": {\r\n        \"nome\": \"Maria da Silva\",\r\n        \"logradouro\": \"Rua das boiadas\",\r\n        \"numero\": \"100\",\r\n        \"bairro\": \"Centro\"\r\n    },\r\n    \"taxa\": 10.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/entregas/solicitar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entregas",
+								"solicitar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Entregas-Listar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/entregas/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entregas",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Entregas-Buscar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/entregas/listar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entregas",
+								"listar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ocorencias",
+			"item": [
+				{
+					"name": "Ocorrencias-Registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cliente\":{\r\n        \"id\": 11\r\n    },\r\n    \"destinatario\": {\r\n        \"nome\": \"Maria da Silva\",\r\n        \"logradouro\": \"Rua das boiadas\",\r\n        \"numero\": \"100\",\r\n        \"bairro\": \"Centro\"\r\n    },\r\n    \"taxa\": 10.50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
