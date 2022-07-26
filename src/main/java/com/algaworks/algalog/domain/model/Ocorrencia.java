@@ -24,7 +24,15 @@ public class Ocorrencia {
     private String descricao;
 
     @Column(name = "data_registro")
-    private OffsetDateTime detaRegistro;
+    private OffsetDateTime dataRegistro;
 
-
+    @Override
+    public String toString() {
+        return "Ocorrencia{" +
+                "id=" + id +
+                ", entrega=" + entrega +
+                ", descricao='" + descricao + '\'' +
+                ", dataRegistro=" + dataRegistro +
+                '}';
+    }
 }

@@ -56,16 +56,15 @@ public class Entrega {
     @Column(name = "data_finalizado")
     private OffsetDateTime dataFinalizado;
 
-    @OneToMany(mappedBy = "entrega")
+    @OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL)
     private List<Ocorrencia> ocorrencias = new ArrayList<>();
 
     public Ocorrencia adicionarOcorrencia(String descricao) {
         var ocorrencia = new Ocorrencia();
         ocorrencia.setDescricao(descricao);
-        ocorrencia.setDetaRegistro(OffsetDateTime.now());
+        ocorrencia.setDataRegistro(OffsetDateTime.now());
         ocorrencia.setEntrega(this);
         this.getOcorrencias().add(ocorrencia);
-
         return ocorrencia;
     }
 
