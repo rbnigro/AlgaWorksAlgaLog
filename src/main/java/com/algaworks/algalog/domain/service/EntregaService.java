@@ -1,6 +1,6 @@
 package com.algaworks.algalog.domain.service;
 
-import com.algaworks.algalog.domain.exception.NegocioException;
+import com.algaworks.algalog.domain.exception.EntityNotFoundException;
 import com.algaworks.algalog.domain.model.Entrega;
 import com.algaworks.algalog.domain.repository.EntregaReository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class EntregaService {
 
     public Entrega buscar(Long entregaId) {
         return entregaReository.findById(entregaId)
-                .orElseThrow(() -> new NegocioException("Entrega não encontrada!"));
+                .orElseThrow(() -> new EntityNotFoundException("Entrega não encontrada!"));
     }
 
 }

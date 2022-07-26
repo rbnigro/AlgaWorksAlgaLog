@@ -1,5 +1,6 @@
 package com.algaworks.algalog.api.exceptionhanlder;
 
+import com.algaworks.algalog.domain.exception.EntityNotFoundException;
 import com.algaworks.algalog.domain.exception.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -40,6 +41,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var problemaLocal = criaAmbienteProblema(pStatus, vTitulo, campos);
 
         return handleExceptionInternal(ex, problemaLocal, headers, pStatus, request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFound(NegocioException ex, WebRequest webRequest) {
+        var statusLocal = HttpStatus.NOT_FOUND;
+        var problemaLocal = criaAmbienteProblema(statusLocal, ex.getLocalizedMessage(),null);
+
+        return handleExceptionInternal(ex, problemaLocal, new HttpHeaders(), statusLocal, webRequest);
     }
 
     @ExceptionHandler(NegocioException.class)
