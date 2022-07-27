@@ -29,10 +29,10 @@ public class Ocorrencia {
     @Override
     public String toString() {
         return "Ocorrencia{" +
-                "id=" + id +
-                ", entrega=" + entrega +
-                ", descricao='" + descricao + '\'' +
-                ", dataRegistro=" + dataRegistro +
+                "id=" + this.getId() +
+                ", entrega=" + this.getEntrega() +
+                ", descricao='" + this.getDescricao() + '\'' +
+                ", dataRegistro=" + this.getDataRegistro() +
                 '}';
     }
 }

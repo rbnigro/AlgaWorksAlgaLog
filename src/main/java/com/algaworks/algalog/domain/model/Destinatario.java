@@ -30,4 +30,14 @@ public class Destinatario {
     @Column(name = "destinatario_bairro")
     private String bairro;
 
+    @Override
+    public String toString() {
+        return "Destinatario{" +
+                "nome='" + this.getNome() + '\'' +
+                ", logradouro='" + this.getLogradouro() + '\'' +
+                ", numero='" + this.getNumero() + '\'' +
+                ", complemento='" + this.getComplemento() + '\'' +
+                ", bairro='" + this.getBairro() + '\'' +
+                '}';
+    }
 }

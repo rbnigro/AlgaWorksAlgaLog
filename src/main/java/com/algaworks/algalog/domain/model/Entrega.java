@@ -69,4 +69,19 @@ public class Entrega {
     }
 
     // @Transient -> não vai para o banco
+
+
+    @Override
+    public String toString() {
+        return "Entrega{" +
+                "id=" + this.getId() +
+                ", cliente=" + this.getCliente() +
+                ", destinatario=" + this.getDestinatario() +
+                ", taxa=" + this.getTaxa() +
+                ", status=" + this.getStatus() +
+                ", dataPedido=" + this.getDataPedido() +
+                ", dataFinalizado=" + this.getDataFinalizado() +
+                ", ocorrencias=" + this.getOcorrencias() +
+                '}';
+    }
 }
