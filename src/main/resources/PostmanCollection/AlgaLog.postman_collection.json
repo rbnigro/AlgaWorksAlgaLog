@@ -78,7 +78,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/clientes/1",
+							"raw": "localhost:8080/clientes/10",
 							"host": [
 								"localhost"
 							],
@@ -238,7 +238,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/entregas/listar/1",
+							"raw": "localhost:8080/entregas/listar/6",
 							"host": [
 								"localhost"
 							],
@@ -246,7 +246,33 @@
 							"path": [
 								"entregas",
 								"listar",
-								"1"
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Entrega-Finalilzar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/entregas/100/finalizacao",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entregas",
+								"100",
+								"finalizacao"
 							]
 						}
 					},
@@ -258,13 +284,40 @@
 			"name": "Ocorencias",
 			"item": [
 				{
+					"name": "Ocorrencias-Listar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/entrega/100/ocorrencias/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"entrega",
+								"100",
+								"ocorrencias",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Ocorrencias-Registrar",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cliente\":{\r\n        \"id\": 11\r\n    },\r\n    \"destinatario\": {\r\n        \"nome\": \"Maria da Silva\",\r\n        \"logradouro\": \"Rua das boiadas\",\r\n        \"numero\": \"100\",\r\n        \"bairro\": \"Centro\"\r\n    },\r\n    \"taxa\": 10.50\r\n}",
+							"raw": "{\r\n    \"descricao\": \"Tenativa de entrega 2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -272,14 +325,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/entregas/solicitar",
+							"raw": "localhost:8080/entrega/600/ocorrencias",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"entregas",
-								"solicitar"
+								"entrega",
+								"600",
+								"ocorrencias"
 							]
 						}
 					},
