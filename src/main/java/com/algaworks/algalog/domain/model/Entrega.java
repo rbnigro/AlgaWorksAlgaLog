@@ -1,6 +1,8 @@
 package com.algaworks.algalog.domain.model;
 
 import com.algaworks.algalog.domain.ValildationsGroups;
+import com.algaworks.algalog.domain.exception.NegocioException;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -57,6 +59,7 @@ public class Entrega {
     private OffsetDateTime dataFinalizado;
 
     @OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Ocorrencia> ocorrencias = new ArrayList<>();
 
     public Ocorrencia adicionarOcorrencia(String descricao) {
@@ -70,18 +73,17 @@ public class Entrega {
 
     // @Transient -> não vai para o banco
 
+    public void finalizar() {
+        if (!podeFinalizar()) {
+            throw new NegocioException("Entrega não pode ser finalizada!");
+        }
 
-    @Override
-    public String toString() {
-        return "Entrega{" +
-                "id=" + this.getId() +
-                ", cliente=" + this.getCliente() +
-                ", destinatario=" + this.getDestinatario() +
-                ", taxa=" + this.getTaxa() +
-                ", status=" + this.getStatus() +
-                ", dataPedido=" + this.getDataPedido() +
-                ", dataFinalizado=" + this.getDataFinalizado() +
-                ", ocorrencias=" + this.getOcorrencias() +
-                '}';
+        this.setStatus(StatusEntrega.FIANALIZADA);
+        this.setDataFinalizado(OffsetDateTime.now());
     }
+
+    private boolean podeFinalizar() {
+        return StatusEntrega.PENDENTE.equals(this.getStatus());
+    }
+
 }

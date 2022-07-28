@@ -1,5 +1,6 @@
 package com.algaworks.algalog.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class Ocorrencia {
 
     @ManyToOne
     @JoinColumn(name = "entrega_id")
+    @JsonBackReference
     private Entrega entrega;
 
     @Column(name = "descricao")

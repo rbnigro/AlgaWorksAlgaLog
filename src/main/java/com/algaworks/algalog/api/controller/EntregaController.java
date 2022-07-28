@@ -3,7 +3,7 @@ package com.algaworks.algalog.api.controller;
 import com.algaworks.algalog.api.dto.EntregaDTO;
 import com.algaworks.algalog.domain.model.Entrega;
 import com.algaworks.algalog.domain.repository.EntregaReository;
-import com.algaworks.algalog.domain.service.SolicitacaoEntregaService;
+import com.algaworks.algalog.domain.service.EntregaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class EntregaController {
     @Autowired
     private EntregaReository entregaReository;
     @Autowired
-    private SolicitacaoEntregaService solicitacaoEntregaService;
+    private EntregaService entregaService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -28,7 +28,7 @@ public class EntregaController {
     @PostMapping("/solicitar")
     @ResponseStatus(HttpStatus.CREATED)
     public Entrega solicitarEntrega(@Valid @RequestBody Entrega entrega) {
-        return solicitacaoEntregaService.solicitarEntrega(entrega);
+        return entregaService.solicitarEntrega(entrega);
     }
 
     @GetMapping("/listar")
@@ -46,4 +46,13 @@ public class EntregaController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{entregaId}/finalizacao")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void finalizar(@PathVariable Long entregaId) {
+        entregaService.finalizar(entregaId);
+    }
+
+    //TODO implementar Swagger
+    //TODO implementar Cancelamento
 }
