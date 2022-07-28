@@ -40,6 +40,8 @@ public class OcorrenciaController {
 
         Type listType = new TypeToken<List<OcorrenciaDTO>>(){}.getType();
         return modelMapper.map(lista, listType);
+
+        // https://stackoverflow.com/questions/47929674/modelmapper-mapping-list-of-entites-to-list-of-dto-objects
     }
 
 }
