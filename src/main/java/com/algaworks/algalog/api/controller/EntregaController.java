@@ -47,12 +47,18 @@ public class EntregaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{entregaId}/finalizacao")
+    @PutMapping("/{entregaId}/finalizar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void finalizar(@PathVariable Long entregaId) {
         entregaService.finalizar(entregaId);
     }
 
+    @PutMapping("/{entregaId}/cancelar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelar(@PathVariable Long entregaId) {
+        entregaService.cancelar(entregaId);
+    }
+
     //TODO implementar Swagger
-    //TODO implementar Cancelamento
-}
+    //TODO retirar repository
+ }

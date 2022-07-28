@@ -74,7 +74,7 @@ public class Entrega {
     // @Transient -> não vai para o banco
 
     public void finalizar() {
-        if (!podeFinalizar()) {
+        if (!isPendente()) {
             throw new NegocioException("Entrega não pode ser finalizada!");
         }
 
@@ -82,8 +82,18 @@ public class Entrega {
         this.setDataFinalizado(OffsetDateTime.now());
     }
 
-    private boolean podeFinalizar() {
+    public void cancelar() {
+        if (!isPendente()) {
+            throw new NegocioException("Entrega não pode ser cancelada!");
+        }
+
+        this.setStatus(StatusEntrega.FIANALIZADA);
+        this.setDataFinalizado(OffsetDateTime.now());
+    }
+
+    private boolean isPendente() {
         return StatusEntrega.PENDENTE.equals(this.getStatus());
     }
+
 
 }

@@ -39,4 +39,11 @@ public class EntregaService {
         entrega.finalizar();
         entregaReository.save(entrega);
     }
+
+    public void cancelar(Long entregaId) {
+        var entrega = buscar(entregaId);
+        entrega.cancelar();
+        entregaReository.save(entrega);
+    }
+
 }
