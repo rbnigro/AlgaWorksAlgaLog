@@ -50,4 +50,8 @@ public class ClienteService {
     public boolean existsById(Long clienteId) {
         return clienteRepository.existsById(clienteId);
     }
+
+    public List<Cliente> findByNomeContaining(String parteNomeCliente) {
+        return clienteRepository.findByNomeContaining(parteNomeCliente);
+    }
 }

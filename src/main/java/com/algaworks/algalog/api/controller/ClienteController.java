@@ -1,5 +1,6 @@
 package com.algaworks.algalog.api.controller;
 
+import com.algaworks.algalog.api.dto.ClienteDTO;
 import com.algaworks.algalog.domain.exception.NegocioException;
 import com.algaworks.algalog.domain.model.Cliente;
 import com.algaworks.algalog.domain.repository.ClienteRepository;
@@ -10,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
 import java.util.List;
 
 @RestController
@@ -26,29 +30,39 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @GetMapping("/listar")
     @ApiOperation(value = "Retorna Lista Clientes")
-    public List<Cliente> listar() {
-        return clienteService.buscarTodos();
+    public List<ClienteDTO> listar() {
+
+        var clientes = clienteService.buscarTodos();
+        Type listType = new TypeToken<List<ClienteDTO>>(){}.getType();
+        return modelMapper.map(clientes, listType);
+
     }
 
     @GetMapping("/nome/{clienteNome}")
     @ApiOperation(value = "Retorna Lista Clientes / Busca por nome")
-    public List<Cliente> nome(@PathVariable String clienteNome) {
-        return clienteService.buscarNome(clienteNome);
+    public List<ClienteDTO> nome(@PathVariable String clienteNome) {
+
+        var clientes = clienteService.buscarNome(clienteNome);
+
+        Type listType = new TypeToken<List<ClienteDTO>>(){}.getType();
+        return modelMapper.map(clientes, listType);
     }
 
     @GetMapping("/contem/{parteNomeCliente}")
     @ApiOperation(value = "Retorna Lista Clientes / Busca parte nome")
     public List<Cliente> contem(@PathVariable String parteNomeCliente) {
-        return clienteRepository.findByNomeContaining(parteNomeCliente);
+        return clienteService.findByNomeContaining(parteNomeCliente);
     }
 
     @GetMapping("/{clienteId}")
     @ApiOperation(value = "Retorna Lista Clientes")
     public ResponseEntity<Cliente> porId(@PathVariable Long clienteId) {
         return clienteRepository.findById(clienteId)
-                //.map(cliente -> ResponseEntity.ok(cliente)) mesma coisa que debaixo
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -56,13 +70,15 @@ public class ClienteController {
     @PostMapping("/adicionar")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Retorna um Cliente / Adiciona um Cliente")
-    public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-        return clienteService.salvar(cliente);
+    public ClienteDTO adicionar(@Valid @RequestBody Cliente cliente) {
+        var clienteRetorno = clienteService.salvar(cliente);
+
+        return modelMapper.map(clienteRetorno, ClienteDTO.class);
     }
 
     @PutMapping("/atualizar/{clienteId}")
     @ApiOperation(value = "Retorna um Cliente / Atualiza um Cliente")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+    public ResponseEntity<ClienteDTO> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
 
         if (!clienteService.existsById(clienteId)) {
             throw new NegocioException("Cliente: [" + clienteId + "] não localizado!");
@@ -70,7 +86,8 @@ public class ClienteController {
 
         cliente.setId(clienteId);
         var clienteRetorno = clienteService.salvar(cliente);
-        return ResponseEntity.ok(clienteRetorno);
+
+        return ResponseEntity.ok(modelMapper.map(clienteRetorno, ClienteDTO.class));
     }
 
     @DeleteMapping("/excluir/{clienteId}")
