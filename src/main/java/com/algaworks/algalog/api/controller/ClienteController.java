@@ -36,27 +36,25 @@ public class ClienteController {
     @GetMapping("/listar")
     @ApiOperation(value = "Retorna Lista Clientes")
     public List<ClienteDTO> listar() {
-
         var clientes = clienteService.buscarTodos();
         Type listType = new TypeToken<List<ClienteDTO>>(){}.getType();
         return modelMapper.map(clientes, listType);
-
     }
 
     @GetMapping("/nome/{clienteNome}")
     @ApiOperation(value = "Retorna Lista Clientes / Busca por nome")
     public List<ClienteDTO> nome(@PathVariable String clienteNome) {
-
         var clientes = clienteService.buscarNome(clienteNome);
-
         Type listType = new TypeToken<List<ClienteDTO>>(){}.getType();
         return modelMapper.map(clientes, listType);
     }
 
     @GetMapping("/contem/{parteNomeCliente}")
     @ApiOperation(value = "Retorna Lista Clientes / Busca parte nome")
-    public List<Cliente> contem(@PathVariable String parteNomeCliente) {
-        return clienteService.findByNomeContaining(parteNomeCliente);
+    public List<ClienteDTO> contem(@PathVariable String parteNomeCliente) {
+        var clientes = clienteService.findByNomeContaining(parteNomeCliente);
+        Type listType = new TypeToken<List<ClienteDTO>>(){}.getType();
+        return modelMapper.map(clientes, listType);
     }
 
     @GetMapping("/{clienteId}")

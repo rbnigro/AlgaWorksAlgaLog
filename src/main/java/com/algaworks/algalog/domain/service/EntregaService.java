@@ -3,12 +3,13 @@ package com.algaworks.algalog.domain.service;
 import com.algaworks.algalog.domain.exception.EntityNotFoundException;
 import com.algaworks.algalog.domain.model.Entrega;
 import com.algaworks.algalog.domain.model.StatusEntrega;
-import com.algaworks.algalog.domain.repository.EntregaReository;
+import com.algaworks.algalog.domain.repository.EntregaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class EntregaService {
@@ -17,7 +18,7 @@ public class EntregaService {
     private ClienteService catalogoClienteService;
 
     @Autowired
-    private EntregaReository entregaReository;
+    private EntregaRepository entregaReository;
 
     public Entrega buscar(Long entregaId) {
         return entregaReository.findById(entregaId)
@@ -46,4 +47,7 @@ public class EntregaService {
         entregaReository.save(entrega);
     }
 
+    public List<Entrega> findAll() {
+        return entregaReository.findAll();
+    }
 }

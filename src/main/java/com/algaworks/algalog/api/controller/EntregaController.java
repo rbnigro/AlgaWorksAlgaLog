@@ -2,16 +2,18 @@ package com.algaworks.algalog.api.controller;
 
 import com.algaworks.algalog.api.dto.EntregaDTO;
 import com.algaworks.algalog.domain.model.Entrega;
-import com.algaworks.algalog.domain.repository.EntregaReository;
+import com.algaworks.algalog.domain.repository.EntregaRepository;
 import com.algaworks.algalog.domain.service.EntregaService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
 import java.util.List;
 
 @RestController
@@ -21,7 +23,7 @@ import java.util.List;
 public class EntregaController {
 
     @Autowired
-    private EntregaReository entregaReository;
+    private EntregaRepository entregaRepository;
     @Autowired
     private EntregaService entregaService;
 
@@ -30,18 +32,21 @@ public class EntregaController {
 
     @PostMapping("/solicitar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Entrega solicitarEntrega(@Valid @RequestBody Entrega entrega) {
-        return entregaService.solicitarEntrega(entrega);
+    public EntregaDTO solicitarEntrega(@Valid @RequestBody Entrega entrega) {
+        var entregaRetorno = entregaService.solicitarEntrega(entrega);
+        return modelMapper.map(entregaRetorno, EntregaDTO.class);
     }
 
     @GetMapping("/listar")
-    public List<Entrega> listar() {
-        return entregaReository.findAll();
+    public List<EntregaDTO> listar() {
+        var entregas = entregaService.findAll();
+        Type listType = new TypeToken<List<EntregaDTO>>(){}.getType();
+        return modelMapper.map(entregas, listType);
     }
 
     @GetMapping("/listar/{entregaId}")
     public ResponseEntity<EntregaDTO> buscar(@PathVariable Long entregaId) {
-        return entregaReository.findById(entregaId)
+        return entregaRepository.findById(entregaId)
                 .map(entrega -> {
                     var entregaDTO = modelMapper.map(entrega, EntregaDTO.class);
 
