@@ -3,6 +3,7 @@ package com.algaworks.algalog.api.controller;
 import com.algaworks.algalog.api.dto.OcorrenciaDTO;
 import com.algaworks.algalog.domain.service.EntregaService;
 import com.algaworks.algalog.domain.service.OcorrenciaService;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/entrega/{entregaId}/ocorrencias")
+@Api(value = "API REST Ocorrencias")
+@CrossOrigin(origins = "*")
 public class OcorrenciaController {
 
     @Autowired

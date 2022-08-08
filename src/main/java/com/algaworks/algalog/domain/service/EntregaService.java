@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 public class EntregaService {
 
     @Autowired
-    private CatalogoClienteService catalogoClienteService;
+    private ClienteService catalogoClienteService;
 
     @Autowired
     private EntregaReository entregaReository;
