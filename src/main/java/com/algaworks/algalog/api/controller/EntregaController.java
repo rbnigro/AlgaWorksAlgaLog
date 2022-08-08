@@ -2,9 +2,9 @@ package com.algaworks.algalog.api.controller;
 
 import com.algaworks.algalog.api.dto.EntregaDTO;
 import com.algaworks.algalog.domain.model.Entrega;
-import com.algaworks.algalog.domain.repository.EntregaRepository;
 import com.algaworks.algalog.domain.service.EntregaService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,6 @@ import java.util.List;
 public class EntregaController {
 
     @Autowired
-    private EntregaRepository entregaRepository;
-    @Autowired
     private EntregaService entregaService;
 
     @Autowired
@@ -32,12 +30,14 @@ public class EntregaController {
 
     @PostMapping("/solicitar")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Solicita Entrega")
     public EntregaDTO solicitarEntrega(@Valid @RequestBody Entrega entrega) {
         var entregaRetorno = entregaService.solicitarEntrega(entrega);
         return modelMapper.map(entregaRetorno, EntregaDTO.class);
     }
 
     @GetMapping("/listar")
+    @ApiOperation(value = "Retorna Lista Entregas")
     public List<EntregaDTO> listar() {
         var entregas = entregaService.findAll();
         Type listType = new TypeToken<List<EntregaDTO>>(){}.getType();
@@ -45,8 +45,9 @@ public class EntregaController {
     }
 
     @GetMapping("/listar/{entregaId}")
+    @ApiOperation(value = "Retorna Entrega Específica")
     public ResponseEntity<EntregaDTO> buscar(@PathVariable Long entregaId) {
-        return entregaRepository.findById(entregaId)
+        return entregaService.findById(entregaId)
                 .map(entrega -> {
                     var entregaDTO = modelMapper.map(entrega, EntregaDTO.class);
 
@@ -56,12 +57,14 @@ public class EntregaController {
     }
 
     @PutMapping("/{entregaId}/finalizar")
+    @ApiOperation(value = "Finaliza Entrega")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void finalizar(@PathVariable Long entregaId) {
         entregaService.finalizar(entregaId);
     }
 
     @PutMapping("/{entregaId}/cancelar")
+    @ApiOperation(value = "Cancela Entrega")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelar(@PathVariable Long entregaId) {
         entregaService.cancelar(entregaId);

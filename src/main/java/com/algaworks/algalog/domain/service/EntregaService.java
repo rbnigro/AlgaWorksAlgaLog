@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntregaService {
@@ -49,5 +50,9 @@ public class EntregaService {
 
     public List<Entrega> findAll() {
         return entregaReository.findAll();
+    }
+
+    public Optional<Entrega> findById(Long entregaId) {
+        return entregaReository.findById(entregaId);
     }
 }

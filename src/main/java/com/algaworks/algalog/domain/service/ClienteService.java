@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -53,5 +54,9 @@ public class ClienteService {
 
     public List<Cliente> findByNomeContaining(String parteNomeCliente) {
         return clienteRepository.findByNomeContaining(parteNomeCliente);
+    }
+
+    public Optional<Cliente> findById(Long clienteId) {
+        return clienteRepository.findById(clienteId);
     }
 }

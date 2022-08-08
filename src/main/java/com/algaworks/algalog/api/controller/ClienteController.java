@@ -3,7 +3,6 @@ package com.algaworks.algalog.api.controller;
 import com.algaworks.algalog.api.dto.ClienteDTO;
 import com.algaworks.algalog.domain.exception.NegocioException;
 import com.algaworks.algalog.domain.model.Cliente;
-import com.algaworks.algalog.domain.repository.ClienteRepository;
 import com.algaworks.algalog.domain.service.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,9 +22,6 @@ import java.util.List;
 @Api(value = "API REST Clientes")
 @CrossOrigin(origins = "*")
 public class ClienteController {
-
-    @Autowired
-    private ClienteRepository clienteRepository;
 
     @Autowired
     private ClienteService clienteService;
@@ -58,10 +54,14 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    @ApiOperation(value = "Retorna Lista Clientes")
-    public ResponseEntity<Cliente> porId(@PathVariable Long clienteId) {
-        return clienteRepository.findById(clienteId)
-                .map(ResponseEntity::ok)
+    @ApiOperation(value = "Retorna Cliente Específico")
+    public ResponseEntity<ClienteDTO> porId(@PathVariable Long clienteId) {
+        return clienteService.findById(clienteId)
+                .map(cliente -> {
+                    var clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+
+                    return ResponseEntity.ok(clienteDTO);
+                })
                 .orElse(ResponseEntity.notFound().build());
     }
 
